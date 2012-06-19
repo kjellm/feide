@@ -48,6 +48,7 @@ class FeideSP
   def consume(request)
     response = Rack::Response.new
     saml_resp = SAML::Bindings.from_endpoint(@assertion_consumer_service).build_response(request)
+    saml_resp.valid?(@meta.idp.idp_sso_descriptors.first.signing_key_descriptor.x509_certificate)
     str = "<pre>Status success?: #{saml_resp.success?}\n"
     saml_resp.assertions.first.attribute_statement.attributes.each do |a|
       str << "  #{a.name} #{a.attribute_values}\n"
