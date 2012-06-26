@@ -20,4 +20,5 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 1.8.7'
 
   s.add_runtime_dependency "saml"
+  s.add_runtime_dependency "rack"
 end

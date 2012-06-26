@@ -1,6 +1,6 @@
 require 'sinatra'
 require 'saml'
-require 'feide_sp'
+require 'feide'
 
 ##### CONFIGURATION
 #
@@ -22,7 +22,7 @@ metadata = 'feide.xml'
 
 meta = SAML::Metadata::Document.new(open(metadata, 'r')).root
 
-use FeideSP, { :meta => meta }
+use Feide::RackServiceProvider, { :meta => meta }
 
 get '/' do
   <<EOT
