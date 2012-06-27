@@ -1,6 +1,6 @@
 require 'feide'
 
-META = SAML::Metadata::Document.new(<<'EOT').root
+META = SAML::Metadata::EntitiesDescriptor.from_xml(SAML::Metadata::Document.new(<<'EOT').root)
 <?xml version="1.0" encoding="UTF-8" ?>
 <EntitiesDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
   <EntityDescriptor entityID="ruby:gem:feide_sp">

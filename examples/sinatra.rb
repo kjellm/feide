@@ -20,7 +20,7 @@ metadata = 'feide.xml'
 #
 ##### END: CONFIGURATION
 
-meta = SAML::Metadata::Document.new(open(metadata, 'r')).root
+meta = SAML::Metadata::EntitiesDescriptor.from_xml(SAML::Metadata::Document.new(open(metadata, 'r')).root)
 
 use Feide::RackServiceProvider, { :meta => meta }
 
@@ -33,4 +33,14 @@ get '/' do
 EOT
 end
 
-
+post meta.sp_assertion_consumer_service.location.path do
+  str = "<pre>Status success?: #{env['X-SAMLResponse'].success?}\n"
+  env['X-SAMLResponse'].assertions.first.attribute_statement.attributes.each do |a|
+    str << "  #{a.name} #{a.attribute_values}\n"
+  end
+  str
+end
+  
+get meta.sp_single_logout_service.location.path do
+  "<pre>Status success?: #{env['X-SAMLResponse'].success?}\n</pre>"
+end

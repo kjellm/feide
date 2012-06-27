@@ -11,7 +11,7 @@ module Feide
       @single_logout_service      = @meta.sp_single_logout_service
     end
   
-    def signon(request, response)
+    def signon(env, request, response)
       saml_req = SAML::Core::AuthnRequest.new
       saml_req.issuer = @meta.sp.entity_id
       endpoint = @meta.idp_single_signon_service
@@ -19,18 +19,14 @@ module Feide
       response
     end
     
-    def consume(request, response)
+    def consume(env, request, response)
       saml_resp = SAML::Bindings.from_endpoint(@assertion_consumer_service).build_response(request)
       saml_resp.valid?(@meta.idp.idp_sso_descriptors.first.signing_key_descriptor.x509_certificate)
-      str = "<pre>Status success?: #{saml_resp.success?}\n"
-      saml_resp.assertions.first.attribute_statement.attributes.each do |a|
-        str << "  #{a.name} #{a.attribute_values}\n"
-      end
-      response.write(str)
-      response
+      env['X-SAMLResponse'] = saml_resp
+      nil
     end
 
-    def logout(request, response)
+    def logout(env, request, response)
       saml_req = SAML::Core::LogoutRequest.new
       saml_req.name_id = "test@feide.no"
       saml_req.issuer = @meta.sp.entity_id
@@ -39,11 +35,10 @@ module Feide
       response
     end
 
-    def consume_logout(request, response)
+    def consume_logout(env, request, response)
       saml_resp = SAML::Bindings.from_endpoint(@single_logout_service).build_response(request)
-      str = "<pre>Status success?: #{saml_resp.success?}\n</pre>"
-      response.write(str)
-      response
+      env['X-SAMLResponse'] = saml_resp
+      nil
     end
 
   end
