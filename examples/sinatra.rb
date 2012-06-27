@@ -35,6 +35,13 @@ end
 
 post meta.sp_assertion_consumer_service.location.path do
   str = "<pre>Status success?: #{env['X-SAMLResponse'].success?}\n"
+  str << "Subject:    #{env['X-SAMLResponse'].assertions.first.subject.name_id}\n"
+  str << "AuthnStatement:\n"
+  an = env['X-SAMLResponse'].assertions.first.authn_statements.first
+  str << "         AuthnInstant: #{an.authn_instant}\n"
+  str << "  SessionNotOnOrAfter: #{an.session_not_on_or_after}\n"
+  str << "         SessionIndex: #{an.session_index}\n"
+  str << "Attributes\n"
   env['X-SAMLResponse'].assertions.first.attribute_statement.attributes.each do |a|
     str << "  #{a.name} #{a.attribute_values}\n"
   end
