@@ -1,6 +1,9 @@
 source :rubygems
 
-gemspec
+# gemspec
+
+gem "xml_signature", :git => 'git://github.com/kjellm/xml_signature'
+gem "saml", :git => 'git://github.com/kjellm/saml'
 
 group :development do
   gem 'sinatra'
