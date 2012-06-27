@@ -29,7 +29,7 @@ get '/' do
 <h1>The Sinatra Example</h1>
 <ul>
   <li><a href="/feide/signon">Signon</a>
-  <li><a href="/feide/logout">Logout</a>
+  <li><a href="/feide/logout?user=test@feide.no">Logout</a>
 EOT
 end
 
