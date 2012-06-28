@@ -28,26 +28,30 @@ get '/' do
   <<EOT
 <h1>The Sinatra Example</h1>
 <ul>
-  <li><a href="/feide/signon">Signon</a>
+  <li><a href="/feide/signon?relay_state=foo">Signon</a>
   <li><a href="/feide/logout?user=test@feide.no">Logout</a>
 EOT
 end
 
 post meta.sp_assertion_consumer_service.location.path do
-  str = "<pre>Status success?: #{env['X-SAMLResponse'].success?}\n"
-  str << "Subject:    #{env['X-SAMLResponse'].assertions.first.subject.name_id}\n"
+  r = env['X-SAMLResponse'].core_response
+  rs = env['X-SAMLResponse'].relay_state
+  str = "<pre>Status success?: #{r.success?}\n"
+  str << "RelayState: #{rs}\n"
+  str << "Subject:    #{r.assertions.first.subject.name_id}\n"
   str << "AuthnStatement:\n"
-  an = env['X-SAMLResponse'].assertions.first.authn_statements.first
+  an = r.assertions.first.authn_statements.first
   str << "         AuthnInstant: #{an.authn_instant}\n"
   str << "  SessionNotOnOrAfter: #{an.session_not_on_or_after}\n"
   str << "         SessionIndex: #{an.session_index}\n"
   str << "Attributes\n"
-  env['X-SAMLResponse'].assertions.first.attribute_statement.attributes.each do |a|
+  r.assertions.first.attribute_statement.attributes.each do |a|
     str << "  #{a.name} #{a.attribute_values}\n"
   end
   str
 end
   
 get meta.sp_single_logout_service.location.path do
-  "<pre>Status success?: #{env['X-SAMLResponse'].success?}\n</pre>"
+  r = env['X-SAMLResponse'].core_response
+  "<pre>Status success?: #{r.success?}\n</pre>"
 end

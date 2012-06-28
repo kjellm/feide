@@ -15,13 +15,16 @@ module Feide
       saml_req = SAML::Core::AuthnRequest.new
       saml_req.issuer = @meta.sp.entity_id
       endpoint = @meta.idp_single_signon_service
-      SAML::Bindings.from_endpoint(endpoint).build_request(response, endpoint, saml_req)
+      SAML::Bindings.from_endpoint(endpoint).build_request(response,
+                                                           endpoint,
+                                                           saml_req,
+                                                           request.params['relay_state'])
       response
     end
     
     def consume(env, request, response)
       saml_resp = SAML::Bindings.from_endpoint(@assertion_consumer_service).build_response(request)
-      saml_resp.valid?(@meta.idp.idp_sso_descriptors.first.signing_key_descriptor.x509_certificate)
+      saml_resp.core_response.validate(@meta.idp.idp_sso_descriptors.first.signing_key_descriptor.x509_certificate)
       env['X-SAMLResponse'] = saml_resp
       nil
     end
