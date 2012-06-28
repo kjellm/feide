@@ -29,7 +29,7 @@ get '/' do
 <h1>The Sinatra Example</h1>
 <ul>
   <li><a href="/feide/signon?relay_state=foo">Signon</a>
-  <li><a href="/feide/logout?user=test@feide.no">Logout</a>
+  <li><a href="/feide/logout?user=test@feide.no&relay_state=bar">Logout</a>
 EOT
 end
 
@@ -53,5 +53,8 @@ end
   
 get meta.sp_single_logout_service.location.path do
   r = env['X-SAMLResponse'].core_response
-  "<pre>Status success?: #{r.success?}\n</pre>"
+  rs = env['X-SAMLResponse'].relay_state
+  str = "<pre>Status success?: #{r.success?}\n"
+  str << "RelayState: #{rs}\n"
+  str
 end

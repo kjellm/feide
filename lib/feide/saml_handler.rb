@@ -34,7 +34,10 @@ module Feide
       saml_req.name_id = request.params['user'] # FIXME verify this attribute
       saml_req.issuer = @meta.sp.entity_id
       endpoint = @meta.idp.idp_sso_descriptors.first.single_logout_services.first
-      SAML::Bindings.from_endpoint(endpoint).build_request(response, endpoint, saml_req)
+      SAML::Bindings.from_endpoint(endpoint).build_request(response,
+                                                           endpoint,
+                                                           saml_req,
+                                                           request.params['relay_state'])
       response
     end
 
