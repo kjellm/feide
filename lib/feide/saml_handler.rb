@@ -31,7 +31,11 @@ module Feide
 
     def logout(env, request, response)
       saml_req = SAML::Core::LogoutRequest.new
-      saml_req.name_id = request.params['user'] # FIXME verify this attribute
+
+      # FIXME validate these attributes
+      saml_req.name_id = request.params['user'] 
+      saml_req.session_index = request.params['session_index']
+
       saml_req.issuer = @meta.sp.entity_id
       endpoint = @meta.idp.idp_sso_descriptors.first.single_logout_services.first
       SAML::Bindings.from_endpoint(endpoint).build_request(response,
