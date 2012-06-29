@@ -29,6 +29,8 @@ module Feide
       @app.call(env)
     end
 
+    private
+
     def dispatch(env, request, response)
       return unless %w(GET POST).find(request.request_method)
       handler = @dispatch[request.request_method][request.path_info]
