@@ -2,8 +2,22 @@ require 'saml'
 require 'rack'
 
 module Feide
+
+  # Implementation of Single Sign On and Single Logout SAML profiles. 
+  #
+  # Used by Feide::RackServiceProvider, and typically not used directly by
+  # users of this Library. However, if you don't care for Rack, use
+  # this class and not Feide::RackServiceProvider.
+  #
+  # All methods take the following parameters:
+  #
+  # env:: Hash. Rack env. Used to communicate SAML responses to the
+  #       application.
+  # request:: Rack::Request
+  # response:: Rack::Response
   class SAMLHandler
 
+    # @param [SAML::Metadata::EntitiesDescriptor] meta Metadata describing Feide and your service
     def initialize(meta)
       @meta = meta
       
@@ -11,6 +25,8 @@ module Feide
       @single_logout_service      = @meta.sp_single_logout_service
     end
   
+    # Creates a SSO request, returning a Rack::Response that can be
+    # used to redirect the browser to Feide's signon page.
     def signon(env, request, response)
       saml_req = SAML::Core::AuthnRequest.new
       saml_req.issuer = @meta.sp.entity_id
@@ -22,6 +38,7 @@ module Feide
       response
     end
     
+    # Consumes a SAML singnon response. Result can be red from env['X-SAMLResponse']
     def consume(env, request, response)
       saml_resp = SAML::Bindings.from_endpoint(@assertion_consumer_service).build_response(request)
       saml_resp.core_response.validate(@meta.idp.idp_sso_descriptors.first.signing_key_descriptor.x509_certificate)
