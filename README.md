@@ -26,6 +26,7 @@ Documents describing FEIDE
 --------------------------
 
 - http://www.feide.no/sites/feide.no/files/documents/Feide_technical_guide.pdf
+
 - http://www.feide.no/attributelist
 - https://rnd.feide.no/2009/07/09/saml_2_0_usage_in_feide/
 
@@ -45,7 +46,7 @@ License
 
 (The MIT License)
 
-Copyright © 2012 Kjell-Magne Øierud
+Copyright © 2012 Gyldendal ASA
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 associated documentation files (the ‘Software’), to deal in the Software without restriction, including
