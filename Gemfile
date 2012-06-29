@@ -7,6 +7,9 @@ group :development do
   gem 'rspec'
   gem 'guard'
   gem 'guard-rspec'
-  gem 'growl'
   gem 'pry'
+
+  if RUBY_PLATFORM.downcase.include?("darwin")
+    gem 'growl'
+  end
 end
