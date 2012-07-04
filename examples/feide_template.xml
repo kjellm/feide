@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<EntitiesDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+  <EntityDescriptor entityID="urn:mace:feide.no:services:foobar">
+    <SPSSODescriptor
+        AuthnRequestsSigned="false"
+        WantAssertionsSigned="false"
+        protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+      <SingleLogoutService
+          Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+          Location="http://example.com/feide/slo" />
+      <NameIDFormat>
+        urn:oasis:names:tc:SAML:2.0:nameid-format:transient
+      </NameIDFormat>
+      <AssertionConsumerService
+          index="0"
+          isDefault="true"
+          Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+          Location="http://example.com/feide/consume" />
+    </SPSSODescriptor>
+  </EntityDescriptor>
+  <EntityDescriptor entityID="https://idp-test.feide.no">
+    <IDPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+      <KeyDescriptor use="signing">
+        <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+          <ds:X509Data>
+            <ds:X509Certificate>MIIDkDCCAngCCQCoO7l98RIRDzANBgkqhkiG9w0BAQUFADCBiTELMAkGA1UEBhMCTk8xEjAQBgNVBAcTCVRyb25kaGVpbTETMBEGA1UEChMKVW5pbmV0dCBBUzEOMAwGA1UECxMFRkVJREUxGjAYBgNVBAMTEWlkcC10ZXN0LmZlaWRlLm5vMSUwIwYJKoZIhvcNAQkBFhZtb3JpYS1kcmlmdEB1bmluZXR0Lm5vMB4XDTA4MDkwNTExNTIzOFoXDTE4MDcxNTExNTIzOFowgYkxCzAJBgNVBAYTAk5PMRIwEAYDVQQHEwlUcm9uZGhlaW0xEzARBgNVBAoTClVuaW5ldHQgQVMxDjAMBgNVBAsTBUZFSURFMRowGAYDVQQDExFpZHAtdGVzdC5mZWlkZS5ubzElMCMGCSqGSIb3DQEJARYWbW9yaWEtZHJpZnRAdW5pbmV0dC5ubzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMzbnp+fdJ4nkgXS+EqnfHUqYOnbxMuJga+ZWJUoKQ/X2DAkZI1rPkJgi50K2mKk3me4JjN8+qEV3XLd326XALJnra8yf07l3gE2aDlR+3pMe1fhhSANVjEzY8x6kROJMq9bxreDQjimcjvdFX69FLgxjqtcwWoGcRyn2HZUYuuoWmvqFlX+985lOfLa/PJjaFbdy7XWtucMw6dDTrA+UWK4yjbenZaT/HHyn29kYQ4MKu4Mn0cYasrfrZrVSHG5L7fySVAaXEgaxToH/fVa40Z5ltHWOw2PiDOCsC1CcQFTmKDq1Gkhi1dMhm/CECJFlAR9ML7tG1Ort9q487kSNxUCAwEAATANBgkqhkiG9w0BAQUFAAOCAQEAhf/4EsLnq7EYrvW2gBjJobhweYjjjBng0gXx3yQ/ivHbApcWcbaBLyVIokiGTf7XFhxbeZaT9+vrS+yhKCrcjAfoaXbx/xVVlKLsSMZmOr1g8+4yq6v4ax6orPrsDsmRhutoAUL8AnsGIxbyG/FbjmzEYudnbR44vUnfLD2ffnIGjGLuJHZ0OPMFkPM2V2QPiJlyngrd1xvqBfnsWmWO5pDWlXa/WkxyOBiyIGcmXFJRAPtjJzxUo1CsE2PjdBIqt1bk5UDmuW8qxbDJo1kIKeqVonuAbihZzNXyAFEqV118S4IpCNF7QqBBmlgFE25RMDktiwFk2ymdM680WFBftw==</ds:X509Certificate>
+            </ds:X509Data>
+        </ds:KeyInfo>
+      </KeyDescriptor>
+      <KeyDescriptor use="encryption">
+        <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+          <ds:X509Data>
+            <ds:X509Certificate>MIIDkDCCAngCCQCoO7l98RIRDzANBgkqhkiG9w0BAQUFADCBiTELMAkGA1UEBhMCTk8xEjAQBgNVBAcTCVRyb25kaGVpbTETMBEGA1UEChMKVW5pbmV0dCBBUzEOMAwGA1UECxMFRkVJREUxGjAYBgNVBAMTEWlkcC10ZXN0LmZlaWRlLm5vMSUwIwYJKoZIhvcNAQkBFhZtb3JpYS1kcmlmdEB1bmluZXR0Lm5vMB4XDTA4MDkwNTExNTIzOFoXDTE4MDcxNTExNTIzOFowgYkxCzAJBgNVBAYTAk5PMRIwEAYDVQQHEwlUcm9uZGhlaW0xEzARBgNVBAoTClVuaW5ldHQgQVMxDjAMBgNVBAsTBUZFSURFMRowGAYDVQQDExFpZHAtdGVzdC5mZWlkZS5ubzElMCMGCSqGSIb3DQEJARYWbW9yaWEtZHJpZnRAdW5pbmV0dC5ubzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMzbnp+fdJ4nkgXS+EqnfHUqYOnbxMuJga+ZWJUoKQ/X2DAkZI1rPkJgi50K2mKk3me4JjN8+qEV3XLd326XALJnra8yf07l3gE2aDlR+3pMe1fhhSANVjEzY8x6kROJMq9bxreDQjimcjvdFX69FLgxjqtcwWoGcRyn2HZUYuuoWmvqFlX+985lOfLa/PJjaFbdy7XWtucMw6dDTrA+UWK4yjbenZaT/HHyn29kYQ4MKu4Mn0cYasrfrZrVSHG5L7fySVAaXEgaxToH/fVa40Z5ltHWOw2PiDOCsC1CcQFTmKDq1Gkhi1dMhm/CECJFlAR9ML7tG1Ort9q487kSNxUCAwEAATANBgkqhkiG9w0BAQUFAAOCAQEAhf/4EsLnq7EYrvW2gBjJobhweYjjjBng0gXx3yQ/ivHbApcWcbaBLyVIokiGTf7XFhxbeZaT9+vrS+yhKCrcjAfoaXbx/xVVlKLsSMZmOr1g8+4yq6v4ax6orPrsDsmRhutoAUL8AnsGIxbyG/FbjmzEYudnbR44vUnfLD2ffnIGjGLuJHZ0OPMFkPM2V2QPiJlyngrd1xvqBfnsWmWO5pDWlXa/WkxyOBiyIGcmXFJRAPtjJzxUo1CsE2PjdBIqt1bk5UDmuW8qxbDJo1kIKeqVonuAbihZzNXyAFEqV118S4IpCNF7QqBBmlgFE25RMDktiwFk2ymdM680WFBftw==</ds:X509Certificate>
+          </ds:X509Data>
+        </ds:KeyInfo>
+      </KeyDescriptor>
+      <SingleLogoutService
+          Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+          Location="https://idp-test.feide.no/simplesaml/saml2/idp/SingleLogoutServiceiFrame.php"
+          ResponseLocation="https://idp-test.feide.no/simplesaml/saml2/idp/SingleLogoutServiceiFrameResponse.php"/>
+      <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</NameIDFormat>
+      <SingleSignOnService
+          Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+          Location="https://idp-test.feide.no/simplesaml/saml2/idp/SSOService.php"/>
+    </IDPSSODescriptor>
+    <ContactPerson contactType="technical">
+      <GivenName>Feide</GivenName>
+      <SurName>Support</SurName>
+      <EmailAddress>moria-drift@uninett.no</EmailAddress>
+    </ContactPerson>
+  </EntityDescriptor>
+</EntitiesDescriptor>

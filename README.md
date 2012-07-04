@@ -18,9 +18,10 @@ Usage
 
 See examples/sinatra.rb
 
-For the examples to work you need a XML file containing proper SAML
-metadata named feide.xml. This file needs to be located at the project
-root.
+For the example to work you need a XML file containing proper SAML
+metadata. You need to get this metadata directly from FEIDE. The
+examples/feide_template.xml file shows what the metadata should look
+like.
 
 Documents describing FEIDE
 --------------------------
